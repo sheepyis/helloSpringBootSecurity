@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:insert="~{common :: commonHead}">
+  <title>SpringBoot Security</title>
 </head>
+
 <body>
-$END$
+  <p>Welcome 관리자(<span sec:authentication="principal.username">User</span>)!</p>
+
+  <form th:action="@{/logout}" method="post">
+    <input type="submit" value="LogOut"/>
+  </form>
+
+  <div class="container mt-5">
+  <h2 class="mt-4">전체 가입된 유저 목록</h2>
+  <table class="table table-bordered table-hover mt-3">
+    <thead class="table-dark text-center">
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Roles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}">1</td>
+      <td th:text="${user.email}">admin@hansung.ac.kr</td>
+      <td>
+        <span class="badge bg-secondary me-1"
+              th:each="role : ${user.roles}"
+              th:text="${role.rolename}">
+          ROLE_USER
+        </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:insert="~{common :: commonScript}"></div>
 </body>
 </html>

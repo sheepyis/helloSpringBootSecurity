@@ -1,13 +1,26 @@
 package kr.ac.hansung.cse.hellospringbootsecurity;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootTest
 class HelloSpringBootSecurityApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Test
+    void contextLoads() {
+    }
+
+    @Test
+    void generateHashedPassword() {
+        String pwd = encoder.encode("alicepw"); // plain text
+        System.out.println(pwd);
+    }
+
 
 }
