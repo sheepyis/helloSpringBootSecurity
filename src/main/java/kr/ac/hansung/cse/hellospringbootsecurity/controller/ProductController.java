@@ -54,12 +54,17 @@ public class ProductController {
                               Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "new_product";
+            if (product.getId() == null) {
+                return "new_product";
+            } else {
+                return "edit_product";
+            }
         }
 
         service.save(product);
         return "redirect:/products";
     }
+
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") Long id) {
